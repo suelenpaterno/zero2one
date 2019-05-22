@@ -1,0 +1,35 @@
+body{
+    background: #ccd7da8a;
+    FONT-FAMILY: SANS-SERIF;
+}
+
+.checkbox-td {
+	text-align: center;
+}
+h1{
+	text-align: center;
+}
+
+input[type="checkbox"] {
+	width: 100px;
+	height: 15px;
+}
+
+img{
+	width: 60px;
+}
+
+div{
+	background: "red";
+}
+
+.titulo{
+	color: blue;
+}
+
+td{
+	border-radius: 5px;
+	border-style: ridge;
+	border-top: none;
+}
+
