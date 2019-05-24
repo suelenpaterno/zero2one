@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title >Listagem de Produtos</title>
-    <link href="./estilo.css" type = "text/css" rel = "stylesheet"/>
+	<link href="./estilo.css" type = "text/css" rel = "stylesheet"/>
+	
 </head>
 <body>
- 	<h1 class ="titulo">Listagem de Produtos</h1>
+	 <h1 class ="titulo">Listagem de Produtos</h1>
 
- 	<table border="1px">
+ 	<table id='tabela' border="1px">
  		<tr>
  			<th>Selecionar</th>
  			<th>Nome</th>
@@ -69,10 +70,39 @@
  		<textarea name="descricao" id="descricao" placeholder="Descrição" cols="80" rows="15"></textarea>
  		<br>
 
- 		<button type="submit">Cadastrar</button>
- 		<button type="submit">Cancelar</button>
+ 		<button type="submit" id="cadastrar">Cadastrar</button>
+ 		<button type="submit" id="cancelar">Cancelar</button>
  		<button type="reset" value="">Limpar</button>
- 	</form>
+	 </form>
+	 
+	 <script>	
+	 	
+		document.querySelector('#cadastrar').onclick = (e) => {
+			e.preventDefault();
+			const produto = {
+			 nome: document.querySelector('#nome').value, 
+			 valor: document.querySelector('#valor').value, 
+			 url: document.querySelector('#url').value, 
+			 descricao: document.querySelector('#descricao').value, 
+			 }
+			 
+			 document.querySelector('#tabela').innerHTML = document.querySelector('#tabela').innerHTML +
+			 '<tr>'+
+			 '<td class = "checkbox-td"> '+
+ 			 '<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">'+
+ 			 '</td>'+
+			 '<td>'+produto.nome+'</td> '+
+			 '<td>'+produto.valor+'</td>'+
+ 			 '<td><img src="'+produto.url+'" width="50"></td>'+
+ 			 '<td>'+produto.descricao+'</td>'+
+ 			 '</tr>';
+
+			//console.log(produto);
+		};
+
+
+
+	</script>
 
 </body>
 </html>
