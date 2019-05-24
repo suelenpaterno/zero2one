@@ -5,104 +5,103 @@
     <meta charset="utf-8">
     <title >Listagem de Produtos</title>
 	<link href="./estilo.css" type = "text/css" rel = "stylesheet"/>
-	
 </head>
 <body>
-	 <h1 class ="titulo">Listagem de Produtos</h1>
+	<h1 class ="titulo">Listagem de Produtos</h1>
+	<div>
+		<div>
+			<table id='tabela' border="1px">
+				<tr>
+					<th>Selecionar</th>
+					<th>Nome</th>
+					<th>Valor</th>
+					<th>Imagem</th>
+					<th>Descrição</th>
+				</tr>
+				<tr>
+					<td class = "checkbox-td"> 
+						<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">
+					</td>
+					<td>Nescau 500gr</td>
+					<td>5,50</td>
+					<td> <img src="https://www.paodeacucar.com/img/uploads/1/755/536755.jpg?type=product" width="50"></td>
+					<td>Descrição do Produto 1</td>
+				</tr>
+				<tr>
+					<td class = "checkbox-td"> 
+						<input type="checkbox" name="selecao" id="selecao2">
+					</td>
+					<td>Nesfir Chocolate</td>
+					<td>2,50</td>
+					<td><img src="https://www.clubeextra.com.br/img/uploads/1/971/571971.jpg?type=product" width="50"></td>
+					<td>Descrição do Produto 2</td>
+				</tr>
+				<tr>
+					<td class = "checkbox-td"> 
+						<input type="checkbox" name="selecao" id="selecao3">
+					</td>
+					<td>Negresco</td>
+					<td>5,00</td>
+					<td><img src="https://www.clubeextra.com.br/img/uploads/1/458/551458.jpg?type=product" width="50"></td>
+					<td>Descrição do Produto 3</td>
+				</tr>
+			</table>
+		</div>
 
- 	<table id='tabela' border="1px">
- 		<tr>
- 			<th>Selecionar</th>
- 			<th>Nome</th>
-			<th>Valor</th>
-			<th>Imagem</th>
-			<th>Descrição</th>
- 		</tr>
- 		<tr>
+		<div>
+			<button type="submit" id="excluir" class="botao_lado_a_lado">Excluir</button>
+			<button type="reset" id="limpar" class="botao_lado_a_lado">Limpar</button>
+		</div>
 
- 			<td class = "checkbox-td"> 
- 				<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">
- 			</td>
- 			<td>Nescau 500gr</td>
- 			<td>5,50</td>
- 			<td> <img src="https://www.paodeacucar.com/img/uploads/1/755/536755.jpg?type=product" width="50"></td>
- 			<td>Descrição do Produto 1</td>
- 		</tr>
- 		<tr>
- 			<td class = "checkbox-td"> 
- 				<input type="checkbox" name="selecao" id="selecao2">
- 			</td>
- 			<td>Nesfir Chocolate</td>
- 			<td>2,50</td>
- 			<td><img src="https://www.clubeextra.com.br/img/uploads/1/971/571971.jpg?type=product" width="50"></td>
- 			<td>Descrição do Produto 2</td>
- 		</tr>
- 		<tr>
- 			<td class = "checkbox-td"> 
- 				<input type="checkbox" name="selecao" id="selecao3">
- 			</td>
-		<td>Negresco</td>
- 			<td>5,00</td>
- 			<td><img src="https://www.clubeextra.com.br/img/uploads/1/458/551458.jpg?type=product" width="50"></td>
- 			<td>Descrição do Produto 3</td>
- 		</tr>
- 	</table>
- 	<br>
- 	<button type="submit">Excluir</button>
- 	<button type="reset" value="Reset">Limpar</button>
-
- 	<br>
- 	<br>
- 	<br>
-
- 	<form>
- 		<input type="text" name="nome" id="nome" placeholder="Nome do Produto">
- 		<br>
- 		<br>
-
- 		<input type="number" min="0" name="valor" id="valor" placeholder="Valor">
- 		<br>
- 		<br>
-
- 		<input type="url" name="url" id="url" id="url" placeholder="URL">
- 		<br>
- 		<br>
- 		<textarea name="descricao" id="descricao" placeholder="Descrição" cols="80" rows="15"></textarea>
- 		<br>
-
- 		<button type="submit" id="cadastrar">Cadastrar</button>
- 		<button type="submit" id="cancelar">Cancelar</button>
- 		<button type="reset" value="">Limpar</button>
-	 </form>
-	 
-	 <script>	
-	 	
+		<div>
+			<form>
+				<div>
+					<input type="text" name="nome" id="nome" placeholder="Nome do Produto">
+				</div>
+				<div>
+					<input type="number" min="0" name="valor" id="valor" placeholder="Valor">
+				</div>
+				<div>
+					<input type="url" name="url" id="url" id="url" placeholder="URL">
+				</div>
+				<div>
+					<textarea name="descricao" id="descricao" placeholder="Descrição" cols="60" rows="3"></textarea>
+				</div>
+				<div>
+					<button type="submit" id="cadastrar" class="botao_lado_a_lado">Cadastrar</button>
+					<button type="submit" id="cancelar" class="botao_lado_a_lado">Cancelar</button>
+					<button type="reset" value="" class="botao_lado_a_lado">Limpar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>	
+	 	let cont = 3;
 		document.querySelector('#cadastrar').onclick = (e) => {
 			e.preventDefault();
 			const produto = {
-			 nome: document.querySelector('#nome').value, 
-			 valor: document.querySelector('#valor').value, 
-			 url: document.querySelector('#url').value, 
-			 descricao: document.querySelector('#descricao').value, 
-			 }
+							nome: document.querySelector('#nome').value, 
+							valor: document.querySelector('#valor').value, 
+							url: document.querySelector('#url').value, 
+							descricao: document.querySelector('#descricao').value, 
+							};
 			 
-			 document.querySelector('#tabela').innerHTML = document.querySelector('#tabela').innerHTML +
-			 '<tr>'+
-			 '<td class = "checkbox-td"> '+
- 			 '<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">'+
- 			 '</td>'+
-			 '<td>'+produto.nome+'</td> '+
-			 '<td>'+produto.valor+'</td>'+
- 			 '<td><img src="'+produto.url+'" width="50"></td>'+
- 			 '<td>'+produto.descricao+'</td>'+
- 			 '</tr>';
-
-			//console.log(produto);
+			document.querySelector('#tabela').innerHTML = document.querySelector('#tabela').innerHTML +
+				'<tr>'+
+				'<td class = "checkbox-td"> '+
+				'<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">'+
+				'</td>'+
+				'<td>'+produto.nome+'</td> '+
+				'<td>'+produto.valor+'</td>'+
+				'<td><img src="'+produto.url+'" width="50"></td>'+
+				'<td>'+produto.descricao+'</td>'+
+				'</tr>';
 		};
-
-
-
+		
+		document.querySelector('#excluir').onclick = (e) => {
+			e.preventDefault();
+		};
 	</script>
-
+	
 </body>
 </html>

@@ -33,3 +33,12 @@ td{
 	border-top: none;
 }
 
+.botao_lado_a_lado {
+	float: left;
+	width: 100px;
+}
+
+.tres_colunas {
+	float: left;
+	width: 100px;
+}
