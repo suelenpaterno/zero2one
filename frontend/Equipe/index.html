@@ -11,40 +11,7 @@
 	<div>
 		<div>
 			<table id='tabela' border="1px">
-				<tr>
-					<th>Selecionar</th>
-					<th>Nome</th>
-					<th>Valor</th>
-					<th>Imagem</th>
-					<th>Descrição</th>
-				</tr>
-				<tr>
-					<td class = "checkbox-td"> 
-						<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">
-					</td>
-					<td>Nescau 500gr</td>
-					<td>5,50</td>
-					<td> <img src="https://www.paodeacucar.com/img/uploads/1/755/536755.jpg?type=product" width="50"></td>
-					<td>Descrição do Produto 1</td>
-				</tr>
-				<tr>
-					<td class = "checkbox-td"> 
-						<input type="checkbox" name="selecao" id="selecao2">
-					</td>
-					<td>Nesfir Chocolate</td>
-					<td>2,50</td>
-					<td><img src="https://www.clubeextra.com.br/img/uploads/1/971/571971.jpg?type=product" width="50"></td>
-					<td>Descrição do Produto 2</td>
-				</tr>
-				<tr>
-					<td class = "checkbox-td"> 
-						<input type="checkbox" name="selecao" id="selecao3">
-					</td>
-					<td>Negresco</td>
-					<td>5,00</td>
-					<td><img src="https://www.clubeextra.com.br/img/uploads/1/458/551458.jpg?type=product" width="50"></td>
-					<td>Descrição do Produto 3</td>
-				</tr>
+				
 			</table>
 		</div>
 
@@ -59,10 +26,10 @@
 					<input type="text" name="nome" id="nome" placeholder="Nome do Produto">
 				</div>
 				<div>
-					<input type="number" min="0" name="valor" id="valor" placeholder="Valor">
+					<input type="number" min="0" name="preco" id="preco" placeholder="Preço">
 				</div>
 				<div>
-					<input type="url" name="url" id="url" id="url" placeholder="URL">
+					<input type="url" name="imagem" id="imagem" placeholder="URL">
 				</div>
 				<div>
 					<textarea name="descricao" id="descricao" placeholder="Descrição" cols="60" rows="3"></textarea>
@@ -75,32 +42,150 @@
 			</form>
 		</div>
 	</div>
-	<script>	
-	 	let cont = 3;
+	<script>
+		const link = 'https://api.conexaonfe.com.br/v1/produtos'
+
+		/*
+		 A função busca retorna uma promessa de produto do servidor,
+		 que irá devolver uma lista dos produtos 
+		*/
+		function busca(){
+			return fetch(link,{
+				method: 'GET',
+				headers: {
+					'Authorization': 'eee',
+					'Content-Type': 'application/json'
+				}
+			})
+			.then(response => {
+				return response.json();
+			})
+			.then(res => {
+				return res;
+			})
+			.catch(error => {
+				console.log(error);
+			})
+		}
+
+		/*
+		 Função declarada para inserir produtos no servidor
+		 Ela irá pegar as configurações em tela inseridas pelo usuário
+		 no momento que ele clicar cadastrar
+		*/
+		function insert(){
+			return fetch(link,{
+				method: 'POST',
+				headers: {
+					'Authorization': 'eee',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					nome: document.querySelector('#nome').value,
+					preco: document.querySelector('#preco').value,
+					imagem: document.querySelector('#imagem').value, 
+					descricao: document.querySelector('#descricao').value
+				})
+			})
+			.then(response => {
+				return response.json();
+			})
+			.then(res => {
+				console.log(res);
+			})
+			.catch(error => {
+				console.log(error);
+			})
+		}
+
+
+		/*
+		
+		*/
+		function remove(listID, callBack){
+			const promises = [];
+			listID.forEach(id => {
+				promises.push(
+					fetch( `${link}/${id}/remover`,{
+						method: 'GET',
+						headers: {
+							'Authorization': 'eee',
+							'Content-Type': 'application/json'
+							}
+						}).then(response => {
+							return response.json();
+						})
+						.catch(error => {
+							console.log(error);
+						})
+				)
+			});
+			Promise.all(promises).then(() => {
+				atualizatabela();
+			});
+		}
+
+		/*
+		FIM DE DECLARAÇÃO DE FUNÇÕES
+		*/
+		
+		// Início de código sequencial
+		function buscaDados (){
+
+			busca().then(resposta => {
+				let listaProduto = resposta;
+				listaProduto.forEach(produto => {
+					document.querySelector('#tabela').innerHTML = document.querySelector('#tabela').innerHTML +
+					`<tr class="linha">
+					<td class = "checkbox-td">
+					<input type="checkbox" align="center" name="selecao" id="selecao" class="check">
+					</td>
+					<td>${produto.nome}</td>
+					<td>${produto.preco}</td>
+					<td><img src="${produto.imagem}" width="50"></td>
+					<td>${produto.descricao}</td>
+					<td class="produtoHTML">${produto.codigo}</td>
+					</tr>`;
+				});			
+			});
+		};
+
+		function atualizatabela() {
+			document.querySelector('#tabela').innerHTML = `<tr>
+																<th>Selecionar</th>
+																<th>Nome</th>
+																<th>Valor</th>
+																<th>Imagem</th>
+																<th>Descrição</th>
+																<th>Código</th>
+															</tr>`;
+			buscaDados();
+		}		
+
 		document.querySelector('#cadastrar').onclick = (e) => {
 			e.preventDefault();
-			const produto = {
-							nome: document.querySelector('#nome').value, 
-							valor: document.querySelector('#valor').value, 
-							url: document.querySelector('#url').value, 
-							descricao: document.querySelector('#descricao').value, 
-							};
-			 
-			document.querySelector('#tabela').innerHTML = document.querySelector('#tabela').innerHTML +
-				'<tr>'+
-				'<td class = "checkbox-td"> '+
-				'<input type="checkbox" align="center" name="selecao" id="selecao1" class= "check">'+
-				'</td>'+
-				'<td>'+produto.nome+'</td> '+
-				'<td>'+produto.valor+'</td>'+
-				'<td><img src="'+produto.url+'" width="50"></td>'+
-				'<td>'+produto.descricao+'</td>'+
-				'</tr>';
+			insert().then(() => {
+				atualizatabela();
+			});
 		};
-		
+
 		document.querySelector('#excluir').onclick = (e) => {
-			e.preventDefault();
+			e.preventDefault();			
+			let listaCheckBox = document.getElementsByName("selecao")
+			let listaCodigos = document.getElementsByClassName("produtoHTML")
+
+			let listaRemover = [];
+			
+			for(let i = 0; i < listaCheckBox.length; i++ ){
+				if(listaCheckBox[i].checked){
+					listaRemover.push(listaCodigos[i].textContent)
+				}
+			}
+
+			remove(listaRemover);
 		};
+
+		atualizatabela();
 	</script>
 	
 </body>
